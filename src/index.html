@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Twitter Clone</title>
+  <link rel="stylesheet" href="twt.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Explore</a></li>
+        <li><a href="#">Notifications</a></li>
+        <li><a href="#">Messages</a></li>
+        <li><a href="#">Profile</a></li>
+        <li><a href="#">Settings</a></li>
+        <li><a href="#">Logout</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section id="tweet-composer">
+      <form>
+        <textarea name="tweet" placeholder="What's happening?"></textarea>
+        <button type="submit">Tweet</button>
+      </form>
+    </section>
+    <section id="tweets">
+      <article>
+        <header>
+          <img src="https://via.placeholder.com/48x48" alt="User Avatar">
+          <h2>Username</h2>
+          <p>@username</p>
+        </header>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean et dolor vel arcu condimentum elementum.</p>
+        <footer>
+          <a href="#">Like</a>
+          <a href="#">Retweet</a>
+          <a href="#">Reply</a>
+        </footer>
+      </article>
+      <article>
+        <header>
+          <img src="https://via.placeholder.com/48x48" alt="User Avatar">
+          <h2>Username</h2>
+          <p>@username</p>
+        </header>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean et dolor vel arcu condimentum elementum.</p>
+        <footer>
+          <a href="#">Like</a>
+          <a href="#">Retweet</a>
+          <a href="#">Reply</a>
+        </footer>
+      </article>
+    </section>
+  </main>
+   <header>
+      <img src="https://via.placeholder.com/48x48" alt="User Avatar">
+      <h2>Username</h2>
+      <p>@username</p>
+    </header>
+    <p>${tweet.text}</p>
+    <footer>
+      <a href="#">Like</a>
+      <a href="#">Retweet</a>
+      <a href="#">Reply</a>
+    </footer> <header>
+        <img src="https://via.placeholder.com/48x48" alt="User Avatar">
+        <h2>Username</h2>
+        <p>@username</p>
+      </header>
+      <p>${tweet.text}</p>
+      <footer>
+        <a href="#">Like</a>
+        <a href="#">Retweet</a>
+        <a href="#">Reply</a>
+      </footer>
+      <header>
+        <img src="https://via.placeholder.com/48x48" alt="User Avatar">
+        <h2>Username</h2>
+        <p>@username</p>
+      </header>
+      <p>${tweetText}</p>
+      <footer>
+        <button class="like-button">Like</button>
+        <a href="#">Retweet</a>
+        <a href="#">Reply</a>
+      </footer>
+      <header>
+        <img src="https://via.placeholder.com/48x48" alt="User Avatar">
+        <h2>Username</h2>
+        <p>@username</p>
+      </header>
+      <p>${tweetText}</p>
+      <footer>
+        <button class="like-button">Like</button>
+        <a href="#">Retweet</a>
+        <a href="#">Reply</a>
+      </footer>
+</body>
+</html>
+<script>
+    const tweetForm = document.querySelector('#tweet-composer form');
+
+tweetForm.addEventListener('submit', function(event) {
+  event.preventDefault();
+  
+  // Call a function to handle the form submission
+  handleTweetSubmission();
+});
+
+function handleTweetSubmission() {
+  // Get the tweet input value
+  const tweetInput = tweetForm.querySelector('textarea');
+  const tweetText = tweetInput.value;
+
+  // Create a new tweet element
+  const tweetElement = document.createElement('article');
+  tweetElement.innerHTML = `
+    <header>
+      <img src="https://via.placeholder.com/48x48" alt="User Avatar">
+      <h2>Username</h2>
+      <p>@username</p>
+    </header>
+    <p>${tweetText}</p>
+    <footer>
+      <a href="#">Like</a>
+      <a href="#">Retweet</a>
+      <a href="#">Reply</a>
+    </footer>
+  `;
+
+  // Add the new tweet element to the tweets section
+  const tweetsSection = document.querySelector('#tweets');
+  tweetsSection.insertBefore(tweetElement, tweetsSection.firstChild);
+
+  // Create a new tweet object
+  const newTweet = {
+    text: tweetText,
+    date: new Date().toISOString()
+  };
+
+  // Get the existing tweets from localStorage
+  let tweets = JSON.parse(localStorage.getItem('tweets')) || [];
+
+  // Add the new tweet to the tweets array
+  tweets.unshift(newTweet);
+
+  // Save the tweets data to localStorage
+  localStorage.setItem('tweets', JSON.stringify(tweets));
+
+  // Reset the form
+  tweetInput.value = '';
+}
+// Load the saved tweets data from localStorage
+const tweets = JSON.parse(localStorage.getItem('tweets')) || [];
+
+// Create a tweet element for each tweet object
+const tweetsSection = document.querySelector('#tweets');
+tweets.forEach(function(tweet) {
+  const tweetElement = document.createElement('article');
+  tweetElement.innerHTML = `
+    <header>
+      <img src="https://via.placeholder.com/48x48" alt="User Avatar">
+      <h2>Username</h2>
+      <p>@username</p>
+    </header>
+    <p>${tweet.text}</p>
+    <footer>
+      <a href="#">Like</a>
+      <a href="#">Retweet</a>
+      <a href="#">Reply</a>
+    </footer>
+  `;
+  tweetsSection.appendChild(tweetElement);
+});
+function handleTweetSubmission() {
+  // Get the tweet input value
+  const tweetInput = tweetForm.querySelector('textarea');
+  const tweetText = tweetInput.value;
+
+  // Create a new tweet element
+  const tweetElement = document.createElement('article');
+  tweetElement.innerHTML = `
+    <header>
+      <img src="https://via.placeholder.com/48x48" alt="User Avatar">
+      <h2>Username</h2>
+      <p>@username</p>
+    </header>
+    <p>${tweetText}</p>
+    <footer>
+      <button class="like-button">Like</button>
+      <a href="#">Retweet</a>
+      <a href="#">Reply</a>
+    </footer>
+  `;
+
+  // Add the new tweet element to the tweets section
+  const tweetsSection = document.querySelector('#tweets');
+  tweetsSection.insertBefore(tweetElement, tweetsSection.firstChild);
+
+  // Create a new tweet object
+  const newTweet = {
+    text: tweetText,
+    date: new Date().toISOString(),
+    likes: 0
+  };
+
+  // Get the existing tweets from localStorage
+  let tweets = JSON.parse(localStorage.getItem('tweets')) || [];
+
+  // Add the new tweet to the tweets array
+  tweets.unshift(newTweet);
+
+  // Save the tweets data to localStorage
+  localStorage.setItem('tweets', JSON.stringify(tweets));
+
+  // Reset the form
+  tweetInput.value = '';
+
+  // Add event listener to the "Like" button
+  const likeButton = tweetElement.querySelector('.like-button');
+  likeButton.addEventListener('click', function() {
+    newTweet.likes++;
+    localStorage.setItem('tweets', JSON.stringify(tweets));
+    updateLikesDisplay(tweetElement, newTweet.likes);
+  });
+}
+
+function updateLikesDisplay(tweetElement, likes) {
+  const likesDisplay = tweetElement.querySelector('.likes');
+  likesDisplay.textContent = `${likes} ${likes === 1 ? 'like' : 'likes'}`;
+}
+
+
+</script>
+
